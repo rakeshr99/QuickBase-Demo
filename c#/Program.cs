@@ -26,15 +26,12 @@ namespace Backend
 
             IStatService statServiceFromDb = new IStatServiceImpl();
             List<Tuple<string, int>> listFromDb = statServiceFromDb.GetCountryPopulations();
+            HelperServices helper = new HelperServices();
 
             Console.WriteLine("results from the Database class ----------------------------------");
             Dictionary<string, int> dict = new Dictionary<string, int>();
 
-            foreach (Tuple<string, int> tuple in listFromDb)
-            {
-                Console.WriteLine("Country :" + tuple.Item1 + " Population :" + tuple.Item2);
-                dict.Add(tuple.Item1, tuple.Item2);
-            }
+            dict = helper.AddPopulationsToDictionary(dict, listFromDb);
 
             IStatService statServiceFromConcrete = new ConcreteStatService();
 
@@ -43,26 +40,10 @@ namespace Backend
           
             Console.WriteLine("results from the concrete class --------------------------------------");
 
-            foreach (Tuple<string, int> tuple in listFromConcrete)
-            {
-                Console.WriteLine("Country :" + tuple.Item1 + " Population :" + tuple.Item2);
-
-                if (tuple.Item1.Equals(USA))
-                {
-                    continue;
-                }
-                if (!dict.ContainsKey(tuple.Item1))
-                {
-                    dict.Add(tuple.Item1, tuple.Item2);
-                }
-                
-            }
+            helper.AddPopulationsToDictionary(dict, listFromConcrete);
 
             Console.WriteLine("Total results and merging both lists --------------------------------------");
-            foreach(KeyValuePair<string, int> entry in dict)
-            {
-                Console.WriteLine("Country :" + entry.Key + " Population :" + entry.Value);
-            }
+            helper.PrintDictionary(dict);
 
             Console.WriteLine("Total results and merging both lists --------------------------------------size : " + dict.Count);
 

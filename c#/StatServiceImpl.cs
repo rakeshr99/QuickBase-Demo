@@ -7,7 +7,7 @@ using System.Data.SQLite;
 
 namespace Backend
 {
-    class IStatServiceImpl : IStatService
+    public class IStatServiceImpl : IStatService
     {
         public List<Tuple<string, int>> GetCountryPopulations()
         {
