@@ -8,8 +8,16 @@ using System.Threading.Tasks;
 
 namespace Backend
 {
+    /// <summary>
+    /// SqliteDbManager provides methods to interact with
+    /// the database
+    /// </summary>
     public class SqliteDbManager : IDbManager
     {
+        /// <summary>
+        /// gets a new connection to the citystatecountry database
+        /// </summary>
+        /// <returns>DbConnection</returns>
         public DbConnection getConnection()
         {
             try
