@@ -35,7 +35,7 @@ namespace Backend
         public Dictionary<string, int> GetCountryPopulations()
         {
             Dictionary<string, int> dict = sqliteDbManagerImpl.GetCountryPopulations();
-            HelperServices helper = new HelperServices();
+            StatsUtilityServices helper = new StatsUtilityServices();
 
             Console.WriteLine("results from the Database class ----------------------------------");
             helper.PrintDictionary(dict);
@@ -52,6 +52,12 @@ namespace Backend
 
             Console.WriteLine("Total results and merging both lists --------------------------------------size : " + dict.Count);
             return dict;
+        }
+
+        public int getSpecificCountryPopulation(string countryName)
+        {
+            return sqliteDbManagerImpl.getSpecificCountryPopulation(countryName);
+
         }
     }
 }

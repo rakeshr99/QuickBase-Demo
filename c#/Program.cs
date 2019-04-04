@@ -24,7 +24,7 @@ namespace Backend
                 Console.WriteLine("Failed to get connection");
             }
 
-            HelperServices helperServices = new HelperServices();
+            StatsUtilityServices helperServices = new StatsUtilityServices();
             IStatAggregateService statAggregateService = new StatAggregateServiceImpl();
             //Retrieving countries and its populations
             Dictionary<string, int> populationResults = statAggregateService.GetCountryPopulations();

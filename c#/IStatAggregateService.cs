@@ -22,5 +22,15 @@ namespace Backend
         /// key as country name and value as populations
         /// </returns>
         Dictionary<string, int> GetCountryPopulations();
+
+        /// <summary>
+        /// The method combines the population information of countries obtained from 
+        /// database and API in Dictionary, if the same country information in both 
+        /// data sources information from database is given preference. 
+        /// </summary>
+        /// <returns>Dictionary with all the countries and its population
+        /// key as country name and value as populations
+        /// </returns>
+        int getSpecificCountryPopulation(string countryName);
     }
 }

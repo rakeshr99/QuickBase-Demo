@@ -65,5 +65,52 @@ namespace Backend
 
             return dict;
         }
+
+        /// <summary>
+        /// This method gets the population of a specific country
+        /// </summary>
+        /// <param name="countryName">Country Name</param>
+        /// <returns>Integer specifying </returns>
+        public int getSpecificCountryPopulation(string countryName)
+        {
+            int result = -1;
+
+            if (!isValidCountryName(countryName))
+            {
+                return -1;
+            }
+            SQLiteConnection sQLiteConnection = null;
+            try
+            {
+                sQLiteConnection = getConnection();
+                SQLiteCommand command = new SQLiteCommand(DBConstants.GET_SPECIFIC_COUNTRY_POPULATION, sQLiteConnection);
+                command.Parameters.Add(new SQLiteParameter("@param", countryName));
+                SQLiteDataReader sdr = command.ExecuteReader();
+                while (sdr.Read())
+                {
+                    result = Convert.ToInt32(sdr[DBConstants.POPULATION]);
+                }
+            }
+            catch (SQLiteException ex)
+            {
+                Console.WriteLine(ex.Message);
+                return -1;
+            }
+            finally
+            {
+                sQLiteConnection.Close();
+            }
+            return result;
+        }
+
+        /// <summary>
+        /// This method validates if country name is valid string
+        /// </summary>
+        /// <param name="countryName"></param>
+        /// <returns>boolean value validating if it is a valid string</returns>
+        public bool isValidCountryName(string countryName)
+        {
+            return countryName != null && !countryName.Trim().Equals("") && (!countryName.Equals(""));
+        }
     }
 }

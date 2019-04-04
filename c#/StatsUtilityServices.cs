@@ -10,7 +10,7 @@ namespace Backend
     /// HelperServices class consists of helper methods for 
     /// population services.
     /// </summary>
-    public class HelperServices
+    public class StatsUtilityServices
     {
         /// <summary>
         /// This method prints countries and its population
