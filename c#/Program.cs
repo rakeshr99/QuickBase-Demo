@@ -18,7 +18,6 @@ namespace Backend
 
             IDbManager db = new SqliteDbManager();
             DbConnection conn = db.getConnection();
-            Console.WriteLine("hello world");
             if(conn == null)
             {
                 Console.WriteLine("Failed to get connection");

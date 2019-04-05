@@ -42,11 +42,12 @@ namespace Backend
         {
             Dictionary<string, int> dict = new Dictionary<string, int>();
             SQLiteConnection sQLiteConnection = null;
+            SQLiteDataReader sdr = null;
             try
             {
                 sQLiteConnection = getConnection();
                 SQLiteCommand command = new SQLiteCommand(DBConstants.GET_ALL_COUNTRY_POPULATION, sQLiteConnection);
-                SQLiteDataReader sdr = command.ExecuteReader();
+                sdr = command.ExecuteReader();
                 while (sdr.Read())
                 {
                     dict.Add((sdr[DBConstants.COUNTRY]).ToString(), Convert.ToInt32(sdr[DBConstants.POPULATION]));
@@ -56,10 +57,10 @@ namespace Backend
             catch (SQLiteException ex)
             {
                 Console.WriteLine(ex.Message);
-                return null;
             }
             finally
             {
+                sdr.Close();
                 sQLiteConnection.Close();
             }
 
@@ -80,15 +81,19 @@ namespace Backend
                 return -1;
             }
             SQLiteConnection sQLiteConnection = null;
+            SQLiteDataReader sdr = null;
             try
             {
                 sQLiteConnection = getConnection();
                 SQLiteCommand command = new SQLiteCommand(DBConstants.GET_SPECIFIC_COUNTRY_POPULATION, sQLiteConnection);
                 command.Parameters.Add(new SQLiteParameter("@param", countryName));
-                SQLiteDataReader sdr = command.ExecuteReader();
+                sdr = command.ExecuteReader();
                 while (sdr.Read())
                 {
-                    result = Convert.ToInt32(sdr[DBConstants.POPULATION]);
+                    if (!sdr.IsDBNull(sdr.GetOrdinal(DBConstants.POPULATION)))
+                    {
+                        result = Convert.ToInt32(sdr[DBConstants.POPULATION]);
+                    }
                 }
             }
             catch (SQLiteException ex)
@@ -98,6 +103,7 @@ namespace Backend
             }
             finally
             {
+                sdr.Close();
                 sQLiteConnection.Close();
             }
             return result;

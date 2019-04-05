@@ -37,18 +37,11 @@ namespace Backend
             Dictionary<string, int> dict = sqliteDbManagerImpl.GetCountryPopulations();
             StatsUtilityServices helper = new StatsUtilityServices();
 
-            Console.WriteLine("results from the Database class ----------------------------------");
-            helper.PrintDictionary(dict);
-
             IStatService statServiceFromConcrete = new ConcreteStatService();
 
             List<Tuple<string, int>> listFromConcrete = statServiceFromConcrete.GetCountryPopulations();
 
-            Console.WriteLine("results from the concrete class --------------------------------------");
-
             helper.AddPopulationsToDictionary(dict, listFromConcrete);
-
-            Console.WriteLine("Total results and merging both lists --------------------------------------");
 
             Console.WriteLine("Total results and merging both lists --------------------------------------size : " + dict.Count);
             return dict;

@@ -21,6 +21,13 @@ namespace Backend
         SQLiteConnection getConnection();
 
         /// <summary>
+        /// This method connects to the database and retrieves all the countries
+        /// and its populations ands the results to dictionary
+        /// </summary>
+        /// <returns>Dictionary with all the countries and its populations from the database</returns>
+        Dictionary<string, int> GetCountryPopulations();
+
+        /// <summary>
         /// This method gets the population of a specific country
         /// </summary>
         /// <param name="countryName">Country Name</param>
